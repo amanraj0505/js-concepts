@@ -102,3 +102,16 @@ for (var i = 0; i < 3; i++) {
     console.log(i); // What is logged?
   }, 1000);
 }
+
+//module pattern
+var Module = (function () {
+  function privateMethod() {
+    // do something
+  }
+
+  return {
+    publicMethod: function () {
+      // can call privateMethod();
+    },
+  };
+})();
