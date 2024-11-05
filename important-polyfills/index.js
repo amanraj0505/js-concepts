@@ -43,3 +43,47 @@ console.log(
     return acc + curr;
   }, 0)
 );
+
+// run once polyfill (using apply)
+function once(func, context) {
+  let ran;
+  return function () {
+    if (func) {
+      ran = func.apply(context || this, arguments);
+      func = null;
+    }
+    return ran;
+  };
+}
+const hello = once((a, b) => {
+  console.log("Function Ran...");
+  console.log(a, b);
+});
+hello(1, 2);
+hello(1, 2);
+hello(1, 2);
+hello(1, 2);
+
+//memoize polyfill using apply
+const memoize = (func) => {
+  const cache = {};
+
+  return (...args) => {
+    const argsToString = JSON.stringify(args);
+    if (argsToString in cache) {
+      console.log("Fetching From Cache...");
+      return cache[argsToString];
+    } else {
+      console.log("Computing Value...");
+      const result = func.apply(this, args);
+      cache[argsToString] = result;
+      return result;
+    }
+  };
+};
+
+const memoizeCalculate = memoize((a, b) => a * a + b * b);
+
+console.log(memoizeCalculate(5, 2));
+console.log(memoizeCalculate(5, 2));
+console.log(memoizeCalculate(5, 2));
