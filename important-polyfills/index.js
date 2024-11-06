@@ -87,3 +87,33 @@ const memoizeCalculate = memoize((a, b) => a * a + b * b);
 console.log(memoizeCalculate(5, 2));
 console.log(memoizeCalculate(5, 2));
 console.log(memoizeCalculate(5, 2));
+
+//polyfill for call
+
+Function.prototype.myCall = function (context = {}, ...args) {
+  if (typeof this !== "function") {
+    throw new Error(this + "is not a function");
+  }
+  context.fn = this;
+  context.fn(...args);
+};
+// polyfill for apply
+
+Function.prototype.myApply = function (context = {}, args = []) {
+  if (typeof this !== "function") {
+    throw new Error(this + "is not a function");
+  }
+  context.fn = this;
+  context.fn(...args);
+};
+// polyfill for bind
+
+Function.prototype.myBind = function (context = {}, ...args) {
+  if (typeof this !== "function") {
+    throw new Error(this + "is not a function");
+  }
+  context.fn = this;
+  return function (...moreArgs) {
+    return context.fn(...args, ...moreArgs);
+  };
+};
