@@ -1,6 +1,6 @@
 const promise1 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    reject("Promise1 Resolved...");
+    resolve("Promise1 Resolved...");
   }, 1000);
 });
 const promise2 = new Promise((resolve, reject) => {
@@ -20,10 +20,10 @@ const promise3 = new Promise((resolve, reject) => {
  */
 Promise.all([promise1, promise2, promise3])
   .then((response) => {
-    console.log("all " + response);
+    console.log("all then " + response);
   })
   .catch((errors) => {
-    console.log("all " + errors);
+    console.log("all catch " + errors);
   });
 /**
  * executes promieses ad return an array of object
@@ -44,7 +44,7 @@ Promise.allSettled([promise1, promise2, promise3])
  */
 Promise.race([promise1, promise2, promise3])
   .then((response) => {
-    console.log("race then" + response);
+    console.log("race then " + response);
   })
   .catch((errors) => {
     console.log("race catch " + errors);
