@@ -1,3 +1,4 @@
+//infinite curry
 function add(a) {
   return function (b) {
     if (b) {
